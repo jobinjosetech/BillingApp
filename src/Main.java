@@ -38,7 +38,21 @@ class Bills {
     }
 
     void addItems(String item, int quantity){
-        items.add(new Item(item, quantity));
+        boolean find = false;
+        for(int i=0;i<items.size();i++){
+            if(items.get(i).item.equals(item)){
+                System.out.println("enter");
+                int value = items.get(i).quantity;
+                items.set(i, new Item(item, (value+quantity)));;
+                find = true;
+                break;
+            }
+        }
+        if(!find){
+            System.out.println("entered");
+            items.add(new Item(item, quantity));
+        }
+
     }
 
     void generateBills(){
@@ -89,6 +103,13 @@ public class Main {
             System.out.println("Phone : "+transaction.phoneNumber);
             System.out.println("Amount: "+transaction.totalAmount);
             System.out.println("-----------------------\n");
+        }
+    }
+    private boolean checkQuantity(int quantity){
+        if(quantity>0){
+            return true;
+        }else {
+            return false;
         }
     }
 
