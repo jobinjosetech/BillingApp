@@ -93,57 +93,66 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-
-        System.out.print("\nPlease enter your name: ");
-        String name  = sc.next();
-        System.out.print("\nPlease enter phone number: ");
-        long phone  = sc.nextLong();
-        Bills bill = new Bills(name, phone);
+        boolean newCustomer = true;
+        Bills bill = null;
         while (true){
-        System.out.println("----------------Menu---------------------");
-        System.out.println("1. Tea - Rs.10");
-        System.out.println("2. Coffee - Rs.15");
-        System.out.println("3. Snacks - Rs.10");
-        System.out.println("4. Idli - Rs.8");
-        System.out.println("5. Dosha - Rs.6");
-        System.out.println("6. Generate Bill");
-        System.out.println("7. View all transactions");
-        System.out.println("8. Exit");
-        System.out.println("-----------------------------------------");
-        System.out.print("\nPlease enter your choice: ");
-        int choice  = sc.nextInt();
+            if(newCustomer){
+                System.out.print("\nPlease enter your name: ");
+                String name  = sc.next();
+                System.out.print("\nPlease enter phone number: ");
+                long phone  = sc.nextLong();
+                bill = new Bills(name, phone);
+                newCustomer = false;
+            }
+            System.out.println("----------------Menu---------------------");
+            System.out.println("1. Tea - Rs.10");
+            System.out.println("2. Coffee - Rs.15");
+            System.out.println("3. Snacks - Rs.10");
+            System.out.println("4. Idli - Rs.8");
+            System.out.println("5. Dosha - Rs.6");
+            System.out.println("6. Generate Bill");
+            System.out.println("7. View all transactions");
+            System.out.println("8. Exit");
+            System.out.println("-----------------------------------------");
+            System.out.print("\nPlease enter your choice: ");
+            int choice  = sc.nextInt();
 
-        switch (choice){
-            case 1:
-                System.out.print("Enter quantity: ");
-                bill.addItems("tea", sc.nextInt());
-                break;
-            case 2:
-                System.out.print("Enter quantity: ");
-                bill.addItems("coffee", sc.nextInt());
-                break;
-            case 3:
-                System.out.print("Enter quantity: ");
-                bill.addItems("snacks", sc.nextInt());
-                break;
-            case 4:
-                System.out.print("Enter quantity: ");
-                bill.addItems("idli", sc.nextInt());
-                break;
-            case 5:
-                System.out.print("Enter quantity: ");
-                bill.addItems("dosha", sc.nextInt());
-                break;
-            case 6:
-                bill.generateBills();
-                transactions.add(bill);
-                break;
-            case 7:
-                displayTransactions();
-                break;
+            switch (choice){
+                case 1:
+                    System.out.print("Enter quantity: ");
+                    bill.addItems("tea", sc.nextInt());
+                    break;
+                case 2:
+                    System.out.print("Enter quantity: ");
+                    bill.addItems("coffee", sc.nextInt());
+                    break;
+                case 3:
+                    System.out.print("Enter quantity: ");
+                    bill.addItems("snacks", sc.nextInt());
+                    break;
+                case 4:
+                    System.out.print("Enter quantity: ");
+                    bill.addItems("idli", sc.nextInt());
+                    break;
+                case 5:
+                    System.out.print("Enter quantity: ");
+                    bill.addItems("dosha", sc.nextInt());
+                    break;
+                case 6:
+                    bill.generateBills();
+                    transactions.add(bill);
+                    newCustomer = true;
+                    break;
+                case 7:
+                    displayTransactions();
+                    newCustomer = true;
+                    break;
+                case 8:
+                    System.exit(0);
+                    break;
+
+            }
+
         }
-
-    }
     }
 }
