@@ -120,23 +120,48 @@ public class Main {
             switch (choice){
                 case 1:
                     System.out.print("Enter quantity: ");
-                    bill.addItems("tea", sc.nextInt());
+                    int teaQ = sc.nextInt();
+                    if(teaQ >0){
+                        bill.addItems("tea", teaQ);
+                    }else{
+                        System.out.println("Invalid Quantity");
+                    }
                     break;
                 case 2:
                     System.out.print("Enter quantity: ");
-                    bill.addItems("coffee", sc.nextInt());
+                    int coffeeQ = sc.nextInt();
+                    if(coffeeQ >0){
+                        bill.addItems("coffee", coffeeQ);
+                    }else{
+                        System.out.println("Invalid Quantity");
+                    }
                     break;
                 case 3:
                     System.out.print("Enter quantity: ");
-                    bill.addItems("snacks", sc.nextInt());
+                    int snackQ = sc.nextInt();
+                    if(snackQ >0){
+                        bill.addItems("snacks", snackQ);
+                    }else{
+                        System.out.println("Invalid Quantity");
+                    }
                     break;
                 case 4:
                     System.out.print("Enter quantity: ");
-                    bill.addItems("idli", sc.nextInt());
+                    int idliQ = sc.nextInt();
+                    if(idliQ >0){
+                        bill.addItems("idli", idliQ);
+                    }else{
+                        System.out.println("Invalid Quantity");
+                    }
                     break;
                 case 5:
                     System.out.print("Enter quantity: ");
-                    bill.addItems("dosha", sc.nextInt());
+                    int doshaQ = sc.nextInt();
+                    if(doshaQ >0){
+                        bill.addItems("dosha", doshaQ);
+                    }else{
+                        System.out.println("Invalid Quantity");
+                    }
                     break;
                 case 6:
                     bill.generateBills();
