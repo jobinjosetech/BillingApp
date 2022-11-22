@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TransferQueue;
 
 class Items {
     static final int tea = 10;
@@ -12,13 +13,23 @@ class Items {
     static final int dosha = 6;
 }
 
+class Item {
+    String item;
+    int quantity;
+
+    public Item(String item, int quantity) {
+        this.item = item;
+        this.quantity = quantity;
+    }
+}
+
 class Bills {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     String date;
     String name;
     long phoneNumber;
 
-    ArrayList<String> items = new ArrayList<String>();
+    ArrayList<Item> items = new ArrayList<Item>();
     double totalAmount;
 
     public Bills(String name, long phoneNumber) {
@@ -26,8 +37,8 @@ class Bills {
         this.phoneNumber = phoneNumber;
     }
 
-    void addItems(String item){
-        items.add(item);
+    void addItems(String item, int quantity){
+        items.add(new Item(item, quantity));
     }
 
     void generateBills(){
@@ -40,24 +51,24 @@ class Bills {
         System.out.println("Customer phone: "+phoneNumber);
 
         System.out.println("------- Items -------");
-        for(String item: items) {
-            if(item=="tea"){
-                total+=Items.tea;
-                System.out.println("Tea: "+Items.tea);
-            } else if (item=="coffee") {
-                total+=Items.coffee;
-                System.out.println("Coffee: "+Items.coffee);
-            }else if (item=="snacks") {
-                total+=Items.snacks;
-                System.out.println("Snacks: "+Items.snacks);
+        for(Item item: items) {
+            if(item.item=="tea"){
+                total+=Items.tea*item.quantity;
+                System.out.println("Tea: "+Items.tea+"*"+item.quantity+"="+(Items.tea*item.quantity));
+            } else if (item.item=="coffee") {
+                total+=Items.coffee*item.quantity;
+                System.out.println("Coffee: "+Items.coffee+"*"+item.quantity+"="+(Items.coffee*item.quantity));
+            }else if (item.item=="snacks") {
+                total+=Items.snacks*item.quantity;
+                System.out.println("Snacks: "+Items.snacks+"*"+item.quantity+"="+(Items.snacks*item.quantity));
             }
-            else if (item=="idli") {
-                total+=Items.idli;
-                System.out.println("Idli: "+Items.idli);
+            else if (item.item=="idli") {
+                total+=Items.idli*item.quantity;
+                System.out.println("Idli: "+Items.idli+"*"+item.quantity+"="+(Items.idli*item.quantity));
             }
-            else if (item=="dosha") {
-                total+=Items.dosha;
-                System.out.println("Dosha: "+Items.dosha);
+            else if (item.item=="dosha") {
+                total+=Items.dosha*item.quantity;
+                System.out.println("Dosha: "+Items.dosha+"*"+item.quantity+"="+(Items.dosha*item.quantity));
             }
         }
         totalAmount = total;
@@ -67,8 +78,23 @@ class Bills {
 
 
 public class Main {
+    static ArrayList<Bills> transactions = new ArrayList<Bills>();
     static Scanner sc = new Scanner(System.in);
+
+    static void displayTransactions() {
+        System.out.println("---------------- Transactions ---------------------");
+        for(Bills transaction: transactions) {
+            System.out.println("Date: "+transaction.date);
+            System.out.println("Customer : "+transaction.name);
+            System.out.println("Phone : "+transaction.phoneNumber);
+            System.out.println("Amount: "+transaction.totalAmount);
+            System.out.println("-----------------------\n");
+        }
+    }
+
     public static void main(String[] args) {
+
+
         System.out.print("\nPlease enter your name: ");
         String name  = sc.next();
         System.out.print("\nPlease enter phone number: ");
@@ -90,22 +116,31 @@ public class Main {
 
         switch (choice){
             case 1:
-                bill.addItems("tea");
+                System.out.print("Enter quantity: ");
+                bill.addItems("tea", sc.nextInt());
                 break;
             case 2:
-                bill.addItems("coffee");
+                System.out.print("Enter quantity: ");
+                bill.addItems("coffee", sc.nextInt());
                 break;
             case 3:
-                bill.addItems("snacks");
+                System.out.print("Enter quantity: ");
+                bill.addItems("snacks", sc.nextInt());
                 break;
             case 4:
-                bill.addItems("idli");
+                System.out.print("Enter quantity: ");
+                bill.addItems("idli", sc.nextInt());
                 break;
             case 5:
-                bill.addItems("dosha");
+                System.out.print("Enter quantity: ");
+                bill.addItems("dosha", sc.nextInt());
                 break;
             case 6:
                 bill.generateBills();
+                transactions.add(bill);
+                break;
+            case 7:
+                displayTransactions();
                 break;
         }
 
